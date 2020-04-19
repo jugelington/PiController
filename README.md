@@ -4,7 +4,7 @@ PiController is a simple command-line application created to make remote managem
 ## Getting Started
 All of these steps assume you already have a server up and running.
 
-Due to the nature of the permissions being given to the Pi user in this tutorial, it is highly recommended that you create a unique user for this program to use. 
+Due to the nature of the permissions being given to the Pi user in this tutorial, it is highly recommended that you create a unique user for this program to use, and that you do not follow *any* of this guide unless you are fully aware of, and comfortable with, the dangers of opening up your server to remote access.
  
 1) Create an `appsettings.json` file, in the same folder as this readme, with a bit of basic config, in the following format:
 ```json
