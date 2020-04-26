@@ -29,7 +29,6 @@ namespace PiController
                 .AddSingleton<AppSettings>(config.Get<AppSettings>())
                 .AddSingleton<Client>()
                 .AddSingleton<StatusOptionMenu>()
-                .AddSingleton<CommandHandler>()
                 .AddSingleton<CommandFactory>()
                 .AddSingleton<ServiceManager>()
                 .AddSingleton<MainMenu>();

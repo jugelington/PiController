@@ -1,48 +1,41 @@
 using System.Reflection;
 using PiController.Settings;
-using PiController.ShellCommands;
 using Renci.SshNet;
 
 namespace PiController.SSH
 {
     public class Client
     {
-        private readonly ConnectionInfo _connectionInfo;
+        private readonly string _host;
+        private readonly string _username;
+        private readonly PrivateKeyFile _keyFile;
 
         public Client(AppSettings appSettings)
         {
-            var sshSettings = appSettings.SshSettings;
-            var keyFile = CreatePrivateKeyFile();
-            _connectionInfo = CreateConnectionInfo(sshSettings.Host, sshSettings.Username, keyFile);
+            _host = appSettings.SshSettings.Host;
+            _username = appSettings.SshSettings.Username;
+            _keyFile = CreatePrivateKeyFile();
         }
 
         private PrivateKeyFile CreatePrivateKeyFile()
         {
             var executingAssembly = Assembly.GetExecutingAssembly();
             var rsaKeyLocation = string.Format("PiController.Settings.{0}", "id_rsa");
-            var names =  Assembly.GetExecutingAssembly().GetManifestResourceNames();
+
             using (var stream = executingAssembly.GetManifestResourceStream(rsaKeyLocation))
             {
                 return new PrivateKeyFile(stream);
             }
         }
-        private ConnectionInfo CreateConnectionInfo(string host, string username, PrivateKeyFile keyFile)
-        {
-            return new ConnectionInfo(host, username, new PrivateKeyAuthenticationMethod(username, keyFile));
-        }
 
-        private SshClient CreateSshClient()
+        public SshCommand DispatchCommand(string rawCommand)
         {
-            return new SshClient(_connectionInfo);
-        }
-
-        public void DispatchCommand(Command cmd)
-        {
-            using (var client = CreateSshClient())
+            using (var client = new SshClient(_host, _username, _keyFile))
             {
                 client.Connect();
-                client.RunCommand(cmd.Body);
+                var cmd = client.RunCommand(rawCommand);
                 client.Disconnect();
+                return cmd;
             }
         }
     }
