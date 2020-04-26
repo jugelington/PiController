@@ -6,7 +6,7 @@ namespace PiController.Features.SystemServices
 {
     public class StatusOptionMenu : MenuBase<ServiceState>
     {
-        protected override string GetMenuName() => "Service Status";
+        public override string GetName() => "Service Status";
 
         public StatusOptionMenu()
         {

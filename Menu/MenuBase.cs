@@ -4,10 +4,10 @@ using System.Linq;
 
 namespace PiController.Menu
 {
-    public abstract class MenuBase<T> where T :IMenuItem
+    public abstract class MenuBase<T> : IMenuItem where T :IMenuItem
     {
         protected IDictionary<int, T> _menuOptions;
-        protected abstract String GetMenuName();
+        public abstract string GetName();
 
         public void DefaultStart()
         {
@@ -15,9 +15,10 @@ namespace PiController.Menu
             var input = GetInput();
             UseValidInput(input);
         }
+
         public void DisplayOptions()
         {
-            Console.WriteLine(GetMenuName());
+            Console.WriteLine(GetName());
 
             foreach (var option in _menuOptions)
             {

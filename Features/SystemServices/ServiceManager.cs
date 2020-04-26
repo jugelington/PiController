@@ -7,11 +7,10 @@ using PiController.Settings;
 
 namespace PiController.Features.SystemServices
 {
-    public class ServiceManager : MenuBase<SystemService>, IFeature
+    public class ServiceManager : MenuBase<SystemService>, IFeature, IMenuItem
     {
         private const string _name = "System Services";
-        protected override string GetMenuName() => _name;
-        public string GetName() => _name;
+        public override string GetName() => _name;
         private readonly CommandFactory _commandFactory;
         private readonly Client _client;
         private readonly StatusOptionMenu _statusOptionMenu;

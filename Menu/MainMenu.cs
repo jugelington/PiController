@@ -7,6 +7,7 @@ namespace PiController.Menu
     public class MainMenu : MenuBase<IFeature>
     {
         private readonly ServiceManager _serviceManager;
+        public override string GetName() => "Main Menu";
 
         public MainMenu(ServiceManager serviceManager)
         {
@@ -18,11 +19,6 @@ namespace PiController.Menu
             };
 
             CreateMenu(features);
-        }
-
-        protected override string GetMenuName()
-        {
-            return "Main Menu"; 
         }
 
         protected override void UseValidInput(IFeature feature)
