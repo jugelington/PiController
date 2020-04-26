@@ -10,7 +10,12 @@ namespace PiController.Features.SystemServices
 
         public StatusOptionMenu()
         {
-            CreateMenu(new List<ServiceState> { ServiceState.start, ServiceState.stop, ServiceState.restart });   
+            CreateMenu(new List<ServiceState> 
+                    {
+                        new ServiceState("start"),
+                        new ServiceState("stop"),
+                        new ServiceState("restart")
+                    });   
         }
 
         protected override void UseValidInput(ServiceState input)

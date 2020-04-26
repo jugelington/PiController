@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace PiController.Menu
 {
-    public abstract class MenuBase<T>
+    public abstract class MenuBase<T> where T :IMenuItem
     {
         protected IDictionary<int, T> _menuOptions;
         protected abstract String GetMenuName();
@@ -21,7 +21,7 @@ namespace PiController.Menu
 
             foreach (var option in _menuOptions)
             {
-                Console.WriteLine($"{option.Key}) {option.Value}");
+                Console.WriteLine($"{option.Key}) {option.Value.GetName()}");
             }
         }
 

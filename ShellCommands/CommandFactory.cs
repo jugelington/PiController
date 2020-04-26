@@ -6,7 +6,7 @@ namespace PiController.ShellCommands
     {
         public string CreateServiceStatusCommand(string systemService, ServiceState serviceState)
         {
-            return $"sudo /bin/systemctl {serviceState} {systemService}.service";
+            return $"sudo /bin/systemctl {serviceState.GetName()} {systemService}.service";
         }
 
         public string CreateServiceStatusQueryCommand(string systemService)

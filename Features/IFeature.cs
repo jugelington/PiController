@@ -1,6 +1,8 @@
+using PiController.Menu;
+
 namespace PiController.Features
 {
-    public interface IFeature
+    public interface IFeature : IMenuItem
     {
        void Start(); 
     }
