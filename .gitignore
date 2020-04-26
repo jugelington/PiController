@@ -6,3 +6,7 @@ appsettings.json
 .vscode/
 
 id_rsa
+
+tags
+
+*.swp
