@@ -12,13 +12,11 @@ namespace PiController.Menu
         public MainMenu(ServiceManager serviceManager)
         {
             _serviceManager = serviceManager; 
-       
-            var features = new List<IFeature>
-            {
-                _serviceManager
-            };
-
-            CreateMenu(features);
+            _rawMenuOptions =
+                new List<IFeature>
+                {
+                    _serviceManager
+                };
         }
 
         protected override void UseValidInput(IFeature feature)

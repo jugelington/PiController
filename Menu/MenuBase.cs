@@ -8,9 +8,11 @@ namespace PiController.Menu
     {
         protected IDictionary<int, T> _menuOptions;
         public abstract string GetName();
+        protected IList<T> _rawMenuOptions = new List<T>();
 
         public void DefaultStart()
         {
+            CreateMenu();
             DisplayOptions();
             var input = GetInput();
             UseValidInput(input);
@@ -47,10 +49,10 @@ namespace PiController.Menu
 
         protected abstract void UseValidInput(T input);
 
-        protected void CreateMenu(IList<T> menuOptions)
+        protected void CreateMenu()
         {
             int i = 1;
-            _menuOptions = menuOptions.ToDictionary(x => i++);
+            _menuOptions = _rawMenuOptions.ToDictionary(x => i++);
         }
     }
 }

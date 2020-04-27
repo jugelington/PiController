@@ -14,19 +14,20 @@ namespace PiController.Features.SystemServices
         private readonly CommandFactory _commandFactory;
         private readonly Client _client;
         private readonly StatusOptionMenu _statusOptionMenu;
+        private readonly IList<string> _systemServices;
 
         public ServiceManager(AppSettings appSettings, CommandFactory commandFactory, Client client, StatusOptionMenu statusOptionMenu)
         {
             _commandFactory = commandFactory;
             _client = client;
             _statusOptionMenu = statusOptionMenu;
-            var menuOptions =  InitialiseServices(appSettings.SystemServices);
-            CreateMenu(menuOptions.ToList());
+            _systemServices = appSettings.SystemServices;
+            _rawMenuOptions = InitialiseServices().ToList();
         }
 
-        private IEnumerable<SystemService> InitialiseServices(IList<string> systemServices)
+        private IEnumerable<SystemService> InitialiseServices()
         {
-            foreach (var service in systemServices)
+            foreach (var service in _systemServices)
             {
                 yield return new SystemService(service, _commandFactory, _client);
             } 
@@ -34,8 +35,8 @@ namespace PiController.Features.SystemServices
 
         protected override void UseValidInput(SystemService systemService)
         {
-            _statusOptionMenu.DisplayOptions();
-            var serviceAction = _statusOptionMenu.GetInput();
+            _statusOptionMenu.DefaultStart();
+            var serviceAction = _statusOptionMenu.Output;
             systemService.ChangeStatus(serviceAction);
         }
 
