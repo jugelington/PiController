@@ -10,12 +10,13 @@ namespace PiController.Menu
         public abstract string GetName();
         protected IList<T> _rawMenuOptions = new List<T>();
 
-        public void DefaultStart()
+        public virtual void Start()
         {
             CreateMenu();
             DisplayOptions();
             var input = GetInput();
             UseValidInput(input);
+            Start();
         }
 
         public void DisplayOptions()

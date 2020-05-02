@@ -17,7 +17,7 @@ namespace PiController
 
             var mainMenu = serviceProvider.GetService<MainMenu>();
 
-            mainMenu.DefaultStart();
+            mainMenu.Start();
         }
 
         private static ServiceProvider ConfigureServices()
